@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      <form #adminLogFrm = "ngForm" (ngSubmit)="login(adminLogFrm)">
+        <div class="card m-5">
+          <div *ngIf="errorStatus == false">
+            <ngb-alert type="danger" [dismissible]="false">
+              <strong>Warning!</strong> ID/Password is invalid
+            </ngb-alert>
+          </div>
+          <div class="card-header text-center text-white bg-info">
+            <h3>Login Form</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label>Enter ID</label>
+              <input type="text" placeholder="ID of Administrator" name="readerId" class="form-control" ngModel required>
+            </div>
+            <div class="form-group">
+              <label>Enter Password</label>
+              <input type="password" placeholder="Password" name="password" class="form-control" ngModel required>
+            </div>
+          </div>
+          <div class="card-footer">
+            <input type="submit" class="btn btn-info" value="Login"/>
+            <hr>
+            <a routerLink="/reader_login">Login as Reader</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

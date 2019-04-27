@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <form #documentSearchFrm="ngForm" (ngSubmit)="documentSearch(documentSearchFrm)">
+        <div class="card m-4">
+          <div *ngIf="errorMsg === 'searcherror'">
+            <ngb-alert type="danger" [dismissible]="false">
+              <strong>Enter atleast one search criteria</strong>
+            </ngb-alert>
+          </div>
+          <div *ngIf="reserveCountError">
+            <ngb-alert type="danger" [dismissible]="true">
+              <strong>You cannot reserve/borrow more then 10 documents</strong>
+            </ngb-alert>
+          </div>
+          <div *ngIf="reserveMsg">
+            <ngb-alert type="success" [dismissible]="false">
+              <strong>Document is Reserved, Please borrow it before 6:00 PM</strong>
+            </ngb-alert>
+          </div>
+          <div *ngIf="borrowsMsg">
+            <ngb-alert type="success" [dismissible]="false">
+              <strong>Document is Borrowed</strong>
+            </ngb-alert>
+          </div>
+
+          <div class="card-header text-center bg-info text-white">
+            <h4>Search Document</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Document ID</label>
+                  <input type="text" class="form-control" placeholder="Document Id" name="documentId" pattern="[0-9]"  ngModel>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Document Title</label>
+                  <input type="text" class="form-control" placeholder="Title" name="documentTitle" ngModel>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Publisher name</label>
+                  <input type="text" class="form-control" placeholder="Publisher" name="docPublisherName" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <input type="submit" class="btn btn-success" value="Search">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <hr class="bg-warning">
+  <div *ngIf="errorMsg === 'noresult'">
+    <ngb-alert type="info" [dismissible]="false">
+      <strong>No result found</strong>
+    </ngb-alert>
+  </div>
+  <table *ngIf="showTable" class="table">
+    <thead class="thead-light">
+    <tr>
+      <th>Document ID</th>
+      <th>Title</th>
+      <!--<th>Publisher</th>-->
+      <!--<th>Published Date</th>-->
+      <th>Branch Location</th>
+      <th>Copies Available</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doc of documentSearchArr">
+        <td>{{doc.documentId}}</td>
+        <td>{{doc.documentTitle}}</td>
+        <!--<td>{{doc.docPublisherName}}</td>-->
+        <!--<td>{{doc.docPublishedDate | date: 'MMM d y'}}</td>-->
+        <td>{{doc.branchLocation}}</td>
+        <td>{{doc.totalAvailableCopies}}</td>
+        <td><button class="btn btn-link" (click)="reserve(doc.documentId,doc.libId,doc.totalAvailableCopies)">Reserve</button></td>
+        <td><button class="btn btn-link" (click)="borrow(doc.documentId,doc.libId,doc.totalAvailableCopies)">Borrow</button></td>
+        <!--<td><a routerLink="/reserve/{{doc.documentId}}/{{doc.copyNo}}/{{doc.libId}}">Reserve</a></td>-->
+      </tr>
+    </tbody>
+  </table>
+</div>

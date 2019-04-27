@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <form #docSearchFrm="ngForm" (ngSubmit)="searchFrequentBorrowers(docSearchFrm)">
+        <div class="card m-5">
+          <div class="card-header bg-info text-white text-center">
+            <strong>Top 10 Most Borrowed Books</strong>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label>Select Branch Location</label>
+              <select class="form-control" name="libId" ngModel>
+                <option *ngFor="let branch of allBranchInfoArr" value="{{branch.libId}}">
+                  {{branch.branchLocation}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="card-footer">
+            <input type="submit" class="btn btn-success" value="Search">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <hr class="bg-warning">
+</div>
+
+<div class="container">
+  <div *ngIf="noDataMsg">
+    <ngb-alert type="warning" class="text-center" [dismissible]="false">
+      <strong>No Data Available</strong>
+    </ngb-alert>
+  </div>
+  <div *ngIf="showTable" class="container">
+    <table class="table">
+      <thead class="thead-light">
+      <tr>
+        <th>Title</th>
+        <th>No. of Books Borrowed</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let doc of mostBorrowedArr">
+        <td>{{doc.documentTitle}}</td>
+        <td>{{doc.numberOfBookBorrowed}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

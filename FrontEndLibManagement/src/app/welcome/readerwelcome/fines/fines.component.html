@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card mt-5">
+        <div class="card-header bg-info text-white text-center text-capitalize">
+          <strong *ngIf="!noFineMsg">TOTAL DUE FINES:   {{totalFine | currency}}</strong>
+          <strong *ngIf="noFineMsg">TOTAL DUE FINES:   $0.00</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="bg-warning mb-5">
+  <div *ngIf="noFineMsg">
+    <ngb-alert type="warning" class="text-center" [dismissible]="false">
+      <strong>You do not have any fine to pay</strong>
+    </ngb-alert>
+  </div>
+</div>
+
+
+  <div *ngIf="!noFineMsg" class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead class="thead-light">
+        <tr>
+          <th>Document Id</th>
+          <th>Title</th>
+          <th>Borrowed Date</th>
+          <th>Returned Date</th>
+          <th>Location To Return/Returned</th>
+          <th>Fine Paid</th>
+          <th>Fine Due</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let fine of finesArr">
+          <td>{{fine.documentId}}</td>
+          <td>{{fine.documentTitle}}</td>
+          <td>{{fine.documentBorrowedDate | date}}</td>
+          <td *ngIf="fine.documentReturnDate == null && fine.fineToPay > 0"><strong class="text-danger">NOT RETURNED</strong></td>
+          <td *ngIf="fine.documentReturnDate == null && fine.fineToPay == 0"><strong class="text-warning">NOT RETURNED</strong></td>
+          <td *ngIf="fine.documentReturnDate !== null">{{fine.documentReturnDate | date}}</td>
+          <td>{{fine.branchLocation}}</td>
+          <td>{{fine.fineAlreadyPaid | currency}}</td>
+          <td>{{fine.fineToPay | currency}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><strong class="text-danger">{{totalFine | currency}}</strong></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+

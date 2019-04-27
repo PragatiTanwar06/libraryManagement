@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      <form #addReaderFrm="ngForm" (ngSubmit)="addReader(addReaderFrm)">
+        <div class="card m-5">
+          <div *ngIf="addReaderMsg">
+            <ngb-alert type="success" [dismissible]="false">
+              <strong>{{addReaderMsg}}</strong>
+            </ngb-alert>
+          </div>
+          <div *ngIf="addReaderError">
+            <ngb-alert type="danger" [dismissible]="false">
+              <strong>Reader is Already Registered</strong>
+            </ngb-alert>
+          </div>
+          <div class="card-header bg-info text-white text-center">
+            <h3>Add New Reader</h3>
+          </div>
+          <div class="card-body">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Enter Reader Name</label>
+                <input type="text" class="form-control" name="name" ngModel required>
+              </div>
+             <div class="form-group">
+               <label>Select reader Type</label>
+               <select class="form-control" name="readerType" ngModel>
+                 <option>STUDENT</option>
+                 <option>SENIOR_CITIZEN</option>
+               </select>
+             </div>
+              <div class="form-group">
+                <label>Enter Addess</label>
+                <input type="text" class="form-control" name="address" ngModel required>
+              </div>
+          </div>
+          </div>
+          <div class="card-footer">
+            <input type="submit" class="btn btn-success" value="Add Reader">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

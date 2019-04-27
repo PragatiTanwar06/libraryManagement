@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div *ngIf="noDataMsg">
+        <ngb-alert type="warning" class="text-center mt-5" [dismissible]="false">
+          <strong>No Data Available</strong>
+        </ngb-alert>
+      </div>
+      <div *ngIf="showTable" class="card m-5">
+        <div class="card-header bg-info text-center text-white">
+          <strong>Top 10 Most Popular Books</strong>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead class="thead-light">
+            <tr>
+              <th>Title</th>
+              <th>No. of Books Borrowed</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let doc of mostPopularArr">
+              <td>{{doc.documentTitle}}</td>
+              <td>{{doc.numberOfBookBorrowed}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

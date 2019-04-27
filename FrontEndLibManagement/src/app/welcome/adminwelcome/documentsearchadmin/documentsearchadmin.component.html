@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <form #docSearchFrm="ngForm" (ngSubmit)="searchDocument(docSearchFrm)">
+        <div class="card m-5">
+          <div class="card-header bg-info text-white text-center">
+            <strong>Search Document Copy</strong>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label>Document ID</label>
+              <input type="text" name="documentId" placeholder="Enter Document ID" class="form-control" ngModel>
+            </div>
+          </div>
+          <div class="card-footer">
+            <input type="submit" class="btn btn-success" value="Search">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <hr class="bg-warning">
+</div>
+
+<div class="container">
+  <div *ngIf="docSearchMsg">
+    <ngb-alert type="info" class="text-center" [dismissible]="false">
+      <strong>No Copies are Avilable</strong>
+    </ngb-alert>
+  </div>
+<div *ngIf="showTable" class="container">
+    <table class="table">
+      <thead class="thead-light">
+      <tr>
+        <th>Document ID</th>
+        <th>Copy Number</th>
+        <th>Branch Location</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let doc of docSearchArr">
+        <td>{{doc.documentId}}</td>
+        <td>{{doc.copyNo}}</td>
+        <td>{{doc.branchLocation}}</td>
+        <td *ngIf="doc.documentStatusEnum === 'AVAILABLE'"><strong class="text-success">{{doc.documentStatusEnum}}</strong></td>
+        <td *ngIf="doc.documentStatusEnum === 'BORROWED'"><strong class="text-danger">{{doc.documentStatusEnum}}</strong></td>
+        <td *ngIf="doc.documentStatusEnum === 'RESERVED'"><strong class="text-primary">{{doc.documentStatusEnum}}</strong></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

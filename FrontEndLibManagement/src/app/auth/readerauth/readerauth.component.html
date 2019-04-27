@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      <form #readerLogFrm = "ngForm" (ngSubmit)="login(readerLogFrm)">
+        <div class="card m-5">
+          <div *ngIf="errorStatus == false">
+            <ngb-alert type="danger" [dismissible]="false">
+              <strong>Warning!</strong> Card Number is Invalid
+            </ngb-alert>
+          </div>
+          <div class="card-header text-center text-white bg-info">
+            <h3>Login Form</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label>Enter Card Number</label>
+              <input type="text" placeholder="Card Number" name="readerId" class="form-control" ngModel required>
+            </div>
+          </div>
+          <div class="card-footer">
+            <input type="submit" class="btn btn-info" value="Login"/>
+            <hr>
+            <a routerLink="/admin_login">Login as Administrator</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

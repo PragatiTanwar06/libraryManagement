@@ -1,0 +1,93 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+    <div *ngIf="noFineMsg">
+      <ngb-alert type="warning" class="text-center mt-2" [dismissible]="false">
+        <strong>No Data Available</strong>
+      </ngb-alert>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div *ngIf="!noFineMsg && showHeaderCard" class="card mt-5">
+        <div class="card-header bg-info text-white text-center text-capitalize">
+          <strong *ngIf="!noFineMsg">AVERAGE FINE PAID:   {{avgFinePaid | currency}}</strong>
+          <strong *ngIf="noFineMsg">AVERAGE FINE PAID:   $0.00</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="bg-warning mb-5">
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <form #calculateFineFrm="ngForm" (ngSubmit)="calculateAvgPaidFine(calculateFineFrm)">
+        <div class="card">
+          <div class="card-header bg-info text-white text-center">
+            <strong>Find Average Fine Paid by Reader</strong>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label>Select Reader ID</label>
+              <select class="form-control" name="readerId" ngModel>
+                <option *ngFor="let reader of allReaderIdArr" value="{{reader.readerId}}">
+                  {{reader.readerId}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="card-footer">
+            <input type="submit" class="btn btn-success" value="Calculate">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="!noFineMsg && showHeaderCard" class="container-fluid mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead class="thead-light">
+        <tr>
+          <th>Document Id</th>
+          <th>Title</th>
+          <th>Borrowed Date</th>
+          <th>Returned Date</th>
+          <th>Location To Return/Returned</th>
+          <th>Fine Paid</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let fine of finesArr">
+          <td *ngIf="fine.documentReturnDate !== null">{{fine.documentId}}</td>
+          <td *ngIf="fine.documentReturnDate !== null">{{fine.documentTitle}}</td>
+          <td *ngIf="fine.documentReturnDate !== null">{{fine.documentBorrowedDate | date}}</td>
+          <td *ngIf="fine.documentReturnDate !== null">{{fine.documentReturnDate | date}}</td>
+          <td *ngIf="fine.documentReturnDate !== null">{{fine.branchLocation}}</td>
+          <td *ngIf="fine.documentReturnDate !== null">{{fine.fineAlreadyPaid | currency}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><strong class="text-danger">{{avgFinePaid | currency}}</strong></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

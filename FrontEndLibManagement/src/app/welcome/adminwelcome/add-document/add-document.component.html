@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <form #addDocCpFrm = "ngForm" (ngSubmit)="addDocCopy(addDocCpFrm); addDocCpFrm.reset()">
+        <div class="card m-5">
+          <div *ngIf="docCopyAddedMsg === 'added'">
+            <ngb-alert type="info" [dismissible]="false">
+              <strong>Document Copy Added Successfuly</strong>
+            </ngb-alert>
+          </div>
+          <div *ngIf="docCopyAddedMsg === 'error'">
+            <ngb-alert type="danger" [dismissible]="false">
+              <strong>Something wrong happened</strong>
+            </ngb-alert>
+          </div>
+          <div class="card-header text-center bg-info text-white">
+            <h4>Add Document</h4>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label>Select Document Title</label>
+              <select class="form-control" name="documentId" ngModel>
+                <option *ngFor="let doc of allDocInfoArr" value="{{doc.documentId}}">
+                  {{doc.documentTitle}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+            <label>Select Branch Location</label>
+            <select class="form-control" name="libId" ngModel>
+              <option *ngFor="let branch of allBranchInfoArr" value="{{branch.libId}}">
+                {{branch.branchLocation}}
+              </option>
+            </select>
+            </div>
+            <div class="form-group">
+              <label>Enter Position for Document Copy</label>
+              <input type="text" class="form-control" maxlength="6" required name="documentCopyPosition" ngModel>
+          </div>
+          </div>
+          <div class="card-footer">
+            <input type="submit" value="Add Document Copy" class="btn btn-success">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

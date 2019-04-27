@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 m-5">
+      <div *ngIf="reserveMsg">
+        <ngb-alert type="warning" [dismissible]="false">
+          <strong>There are no reserved Documents</strong>
+        </ngb-alert>
+      </div>
+      <div *ngIf="borrowedMsg">
+        <ngb-alert type="warning" [dismissible]="false">
+          <strong>There are no Borrowed Documents</strong>
+        </ngb-alert>
+      </div>
+      <div *ngIf="returnDocMsg">
+        <ngb-alert type="info" [dismissible]="false">
+          <strong>{{returnBranchMsg}}</strong>
+        </ngb-alert>
+      </div>
+      <table class="table">
+        <thead class="thead-light">
+        <tr>
+          <th>Document ID</th>
+          <th>Title</th>
+          <th>Reserved/Borrowed Date</th>
+          <th>Reserved/Borrowed Time</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let res of reservedDocArr">
+          <td>{{res.documentId}}</td>
+          <td>{{res.documentTitle}}</td>
+          <td>{{res.documentReservedDate | date: 'M/d/yy'}}</td>
+          <td>{{res.documentReservedDate | date: 'shortTime'}}</td>
+          <td class="bg-info text-white">{{res.documentStatusEnum}}</td>
+          <td><button class="btn btn-link text-info"  (click)="transferDocument(res.documentId,res.copyNo,res.libId)">Checkout</button></td>
+        </tr>
+        <tr *ngFor="let boro of borrowedDocArr">
+          <td>{{boro.documentId}}</td>
+          <td>{{boro.documentTitle}}</td>
+          <td>{{boro.documentBorrowedDate | date: 'M/d/yy'}}</td>
+          <td>{{boro.documentBorrowedDate | date: 'shortTime'}}</td>
+          <td class="text-white bg-success">{{boro.documentStatusEnum}}</td>
+          <td><button class="btn btn-link text-info"  (click)="returnDocument(boro.borrowsNumber, boro.branchLocation)">Return</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

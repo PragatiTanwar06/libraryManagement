@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a *ngIf="readerType ==='OTHER'" class="navbar-brand" routerLink="/welcome/reader">Public Library</a>
+  <a *ngIf="readerType ==='STAFF'" class="navbar-brand" routerLink="/welcome/admin">Public Library</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul *ngIf="readerType === 'OTHER'" class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/welcome/reader">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-primary" routerLink="/view/fine">View Fines</a>
+      </li>
+      <!--<li class="nav-item">-->
+        <!--<a class="nav-link" href="#">Search By Publisher</a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+        <!--<a class="nav-link" href="#">View Reserved Documents</a>-->
+      <!--</li>-->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-primary dropup" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Services
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/document/status">Show Documents Status</a>
+          <!--<div class="dropdown-divider"></div>-->
+          <!--<a class="dropdown-item" href="#">Something else here</a>-->
+        </div>
+      </li>
+      <!--<li class="nav-item">-->
+        <!--<a class="nav-link disabled" href="#">Disabled</a>-->
+      <!--</li>-->
+    </ul>
+
+    <!--for reader type as STAFF-->
+    <ul *ngIf="readerType === 'STAFF'" class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/welcome/admin">Home <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <ul class="navbar-nav mr-5">
+      <li class="nav-item">
+        <div class="btn-group">
+          <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{name}}
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" (click)="logoutReader()" style="cursor: pointer">Logout</a>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</nav>
